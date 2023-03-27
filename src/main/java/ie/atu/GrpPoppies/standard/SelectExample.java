@@ -5,9 +5,9 @@ import java.sql.*;
 public class SelectExample {
     public static void main(String[] args) {
         // MySQL database connection details
-        String url = "jdbc:mysql://localhost:3306/exampledatabase";
-        String username = "root";
-        String password = "password";
+        String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts;";
+        String username = "CloudSAe622a702@carpartserver;";
+        String password = "GroupPoppies2023;";
 
         // SQL statement
         String selectSQL = "SELECT u.username, u.password, e.email " +

@@ -11,10 +11,9 @@ public class TestConnection {
         Connection connection = null;
         try
         {
-            // Load the driver class
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Create a connection to the database
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase", "root", "password");
+            connection = DriverManager.getConnection("jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts;user=CloudSAe622a702@carpartserver;password=GroupPoppies2023;");
             System.out.println("Connection made to connection pool");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

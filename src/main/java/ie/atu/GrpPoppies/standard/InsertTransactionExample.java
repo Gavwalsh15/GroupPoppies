@@ -6,7 +6,7 @@ public class InsertTransactionExample {
         public static void main(String[] args) throws SQLException {
 
             // Connect to the database
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/exampledatabase", "root", "password");
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts;user=CloudSAe622a702@carpartserver;password=GroupPoppies2023;");
 
             try {
                 // Set auto-commit to false to start a transaction
