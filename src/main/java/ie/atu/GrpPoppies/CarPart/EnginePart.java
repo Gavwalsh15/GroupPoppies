@@ -2,24 +2,30 @@ package ie.atu.GrpPoppies.CarPart;
 
 public class EnginePart extends CarPart{
     private static String engineType;
+    private static double engineSize;
 
     public EnginePart() {
     }
 
-    public EnginePart(int partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description) {
+    public EnginePart(double partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description) {
         super(partNumber, name, manufacturer, supplier, quantity, price, warranty, description);
         this.engineType = engineType;
+        this.engineSize = engineSize;
     }
 
-    public static String getEngineType() {
+    public String getEngineType() {
         return engineType;
     }
 
-    public static void setEngineType(String engineType) {
+    public void setEngineType(String engineType) {
         EnginePart.engineType = engineType;
     }
 
-    public static void saveToDatabase(){
+    public double getEngineSize() {
+        return engineSize;
+    }
 
+    public void setEngineSize(double engineSize) {
+        EnginePart.engineSize = engineSize;
     }
 }
