@@ -17,5 +17,6 @@ tasks:
 
 #1 everyone open a new branch (etc AnneRection_Master, Gabeitch_branch)
 #2 commit after every change and push after every major work
+   everyone should have two branches at least, one for master and one for testing
 #3 get gud 
 
