@@ -1,14 +1,14 @@
 package ie.atu.GrpPoppies.CarPart;
 
 public class CarPart {
-        private static double partNumber;
-        private static String name;
-        private static String manufacturer;
-        private static String supplier;
-        private static int quantity;
-        private static double price;
-        private static String warranty;
-        private static String description;
+        private double partNumber;
+        private String name;
+        private String manufacturer;
+        private String supplier;
+        private int quantity;
+        private double price;
+        private String warranty;
+        private String description;
 
 
     public CarPart() {
@@ -88,4 +88,20 @@ public class CarPart {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    @Override
+    public String toString() {
+        return "CarPart{" +
+                "partNumber=" + partNumber +
+                ", name='" + name + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", supplier='" + supplier + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", warranty='" + warranty + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
+

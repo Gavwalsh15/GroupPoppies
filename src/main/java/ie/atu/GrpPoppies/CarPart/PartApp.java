@@ -12,9 +12,9 @@ public class PartApp {
     public static void main(String[] args) {
         try {
             // Load the SQL Server JDBC driver
-            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // Connect to the database
-            //Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DriverManager.getConnection(url, username, password);
 
             // Display the menu
             int choice = 0;
@@ -34,7 +34,7 @@ public class PartApp {
                         addCarPart();
                         break;
                     case 2:
-                        //viewAllParts(conn);
+                        viewAllParts();
                         break;
                     case 3:
                         //deletePart(conn);
@@ -57,30 +57,50 @@ public class PartApp {
         }
     }
 
-    private static void addCarPart() {
+    private static void viewAllParts() {
+        try {
+            Connection conn = DriverManager.getConnection(url, username, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM carpart");
+
+            while (rs.next()) {
+                    int partNumber = rs.getInt("part_number");
+                    String name = rs.getString("name");
+                    String manufacturer = rs.getString("manufacturer");
+                    String supplier = rs.getString("supplier");
+                    int quantity = rs.getInt("quantity");
+                    double price = rs.getDouble("price");
+                    String warranty = rs.getString("warranty");
+                    String description = rs.getString("description");
+                    CarPart part = new CarPart(partNumber, name, manufacturer, supplier, quantity, price, warranty, description);
+                    System.out.println(part.toString());
+                }
+            } catch(SQLException e){
+                System.out.println("Error retrieving car parts: " + e.getMessage());
+            }
+    }
+
+        private static void addCarPart() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Add a part to:");
         System.out.println("1. Car Parts");
         System.out.println("2. Engine Parts");
-        System.out.println("3. Exit");
+        System.out.println("3. Wheel Info");
+        System.out.println("4. Back");
         int choice = scanner.nextInt();
-        CarPart part = new CarPart();
-        EnginePart Epart = new EnginePart();
-        while (choice != 3) {
-            switch (choice) {
-                case 1 -> {
-                    System.out.println("Enter car part details:");
-                }
-                case 2 -> {
 
-                    System.out.println("Enter engine part details:");
-                }
+        while (choice != 4) {
+            switch (choice) {
+                case 1 -> System.out.println("Enter car part details:");
+                case 2 -> System.out.println("Enter engine part details:");
+                case 3 -> System.out.println("Enter Wheel details:");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
 
                 System.out.println("Enter part number:");
                 double partNumber = scanner.nextDouble();
+                scanner.nextLine(); // consume newline character
 
                 System.out.println("Enter part name:");
                 String name = scanner.nextLine();
@@ -89,7 +109,6 @@ public class PartApp {
                 String manufacturer = scanner.nextLine();
 
                 System.out.println("Enter part supplier:");
-                scanner.nextLine();
                 String supplier = scanner.nextLine();
 
                 System.out.println("Enter part quantity:");
@@ -97,15 +116,16 @@ public class PartApp {
 
                 System.out.println("Enter part price:");
                 double price = scanner.nextDouble();
+                scanner.nextLine();
 
                 System.out.println("Enter part warranty:");
                 String warranty = scanner.nextLine();
 
                 System.out.println("Enter part description:");
-                scanner.nextLine();
                 String description = scanner.nextLine();
 
                 if(choice == 1){
+                    CarPart part = new CarPart();
                     part.setPartNumber(partNumber);
                     part.setName(name);
                     part.setManufacturer(manufacturer);
@@ -114,11 +134,10 @@ public class PartApp {
                     part.setPrice(price);
                     part.setWarranty(warranty);
                     part.setDescription(description);
-                } else if(choice == 2) {
+                }else if(choice == 2) {
+                    EnginePart Epart = new EnginePart();
                     System.out.println("Enter Engine Type:");
-                    scanner.nextLine();
                     String engineType = scanner.nextLine();
-                    Epart.setEngineType(engineType);
 
                     System.out.println("Enter Engine Size:");
                     int engineSize = scanner.nextInt();
@@ -132,28 +151,52 @@ public class PartApp {
                     Epart.setPrice(price);
                     Epart.setWarranty(warranty);
                     Epart.setDescription(description);
+                    Epart.setEngineType(engineType);
+                    Epart.setEngineSize(engineSize);
+                    savetoDatabase(Epart);
+                }else if(choice == 3) {
+                    TyreInfo Tpart = new TyreInfo();
+                    System.out.println("Enter Tyre Type:");
+                    String tyreType = scanner.nextLine();
+
+                    System.out.println("Enter tyre Size:");
+                    int tyreSize = scanner.nextInt();
+
+                    System.out.println("Enter Tyre Rating:");
+                    String tyreRating = scanner.nextLine();
+
+                    Tpart.setPartNumber(partNumber);
+                    Tpart.setName(name);
+                    Tpart.setManufacturer(manufacturer);
+                    Tpart.setSupplier(supplier);
+                    Tpart.setQuantity(quantity);
+                    Tpart.setPrice(price);
+                    Tpart.setWarranty(warranty);
+                    Tpart.setDescription(description);
+                    Tpart.setTyreType(tyreType);
+                    Tpart.setTyreRating(tyreRating);
+                    Tpart.setWheelSize(tyreSize);
+                    savetoDatabase(Tpart);
                 }
+                System.out.println("Part added:\n");
 
-                System.out.println("Part added:");
-                System.out.println(part.toString());
-
-            }
-            savetoDatabase(part);
             System.out.println("Add a part to:");
             System.out.println("1. Car Parts");
             System.out.println("2. Engine Parts");
-            System.out.println("3. Exit");
+            System.out.println("3. Wheel Info");
+            System.out.println("4. Back");
             choice = scanner.nextInt();
+            }
         }
 
 
     private static void savetoDatabase(CarPart part) {
         try {
             // establish a connection to the database
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts;user=CloudSAe622a702@carpartserver;password=GroupPoppies2023;");
-
+            Connection conn = DriverManager.getConnection(url, username, password);
             // create a PreparedStatement to insert the CarPart data into the database
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO car_parts (part_number, name, manufacturer, supplier, quantity, price, warranty, description) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO carpart (part_number, name, manufacturer, supplier, quantity, price, warranty, " +
+                    "description) VALUES (?,?,?,?,?,?,?,?)");
 
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, part.getPartNumber());
@@ -184,10 +227,10 @@ public class PartApp {
     private static void savetoDatabase(EnginePart Epart) {
         try{
             // establish a connection to the database
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts;user=CloudSAe622a702@carpartserver;password=GroupPoppies2023;");
-
+            Connection conn = DriverManager.getConnection(url, username, password);
             // create a PreparedStatement to insert the CarPart data into the database
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO engine_parts (part_number, name, manufacturer, supplier, quantity, price, warranty, description, engine_size, engine_type) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO engine_part (part_number, name, manufacturer, supplier, quantity, price, warranty, " +
+                    "description, engine_size, engine_type) VALUES (?,?,?,?,?,?,?,?,?,?)");
 
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, Epart.getPartNumber());
@@ -216,7 +259,46 @@ public class PartApp {
             System.out.println("Error saving car part to database: " + e.getMessage());
         }
     }
+
+    private static void savetoDatabase(TyreInfo Tpart) {
+        try {
+            // establish a connection to the database
+            Connection conn = DriverManager.getConnection(url, username, password);
+            // create a PreparedStatement to insert the CarPart data into the database
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO wheel_info (part_number, name, manufacturer, supplier, quantity, price, " +
+                    "warranty, description, tyretype, tyrerating, wheelsize) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
+            // set the parameters for the PreparedStatement
+            stmt.setDouble(1, Tpart.getPartNumber());
+            stmt.setString(2, Tpart.getName());
+            stmt.setString(3, Tpart.getManufacturer());
+            stmt.setString(4, Tpart.getSupplier());
+            stmt.setInt(5, Tpart.getQuantity());
+            stmt.setDouble(6, Tpart.getPrice());
+            stmt.setString(7, Tpart.getWarranty());
+            stmt.setString(8, Tpart.getDescription());
+            stmt.setString(9, Tpart.getTyreType());
+            stmt.setString(10, Tpart.getTyreRating());
+            stmt.setDouble(11, Tpart.getWheelSize());
+
+            // execute the insert statement
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Car part saved to database.");
+            } else {
+                System.out.println("Failed to save car part to database.");
+            }
+
+            // close the connection to the database
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Error saving car part to database: " + e.getMessage());
+        }
+    }
 }
+
+
+
 
 
 
