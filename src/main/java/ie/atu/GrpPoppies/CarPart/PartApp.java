@@ -2,7 +2,6 @@ package ie.atu.GrpPoppies.CarPart;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class PartApp {
@@ -32,7 +31,7 @@ public class PartApp {
 
                 switch (choice) {
                     case 1 -> addCarPart();
-                    case 2 -> viewAllParts();
+                    case 2 -> viewParts();
                     case 3 -> deletePart();
                     case 4 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
@@ -48,14 +47,13 @@ public class PartApp {
 
     private static void deletePart() {
         Scanner scanner = new Scanner(System.in);
-        listTables();
-        System.out.println("Enter the part category:");
-        String table = scanner.nextLine();
+
+        String tableGet = listTables();
         System.out.println("Enter part number to delete:");
         int partNumber = scanner.nextInt();
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + table + " WHERE part_number = ?");
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableGet + " WHERE part_number = ?");
             stmt.setInt(1, partNumber);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 0) {
@@ -69,39 +67,34 @@ public class PartApp {
     }
 
 
-    private static void viewAllParts() {
-        Scanner scanner = new Scanner(System.in);
-        listTables();
-        System.out.println("Enter the part category:");
-        String table = scanner.nextLine();
+    private static void viewParts() {
+        String tableGet = listTables();
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + table);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableGet);
 
-            while (rs.next()) {
-                int partNumber = rs.getInt("part_number");
-                String name = rs.getString("name");
-                String manufacturer = rs.getString("manufacturer");
-                String supplier = rs.getString("supplier");
-                int quantity = rs.getInt("quantity");
-                double price = rs.getDouble("price");
-                String warranty = rs.getString("warranty");
-                String description = rs.getString("description");
-                CarPart part = new CarPart(partNumber, name, manufacturer, supplier, quantity, price, warranty, description);
-                System.out.println(part.toString());
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int numColumns = rsmd.getColumnCount();
+            System.out.println(numColumns);
+            while (rs.next()){
+                for (int i = 1; i <= numColumns; i++) {
+                    System.out.print(rsmd.getColumnName(i) + ": " + rs.getString(i) + "\t");
+                }
+                System.out.println("\n");
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving car parts: " + e.getMessage());
         }
     }
 
+
     private static void addCarPart() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Add a part to:");
         listTables();
-        System.out.println("4. Back");
+        System.out.println("4. Back");//change this when you think of how
         int choice = scanner.nextInt();
 
         while (choice != 4) {
@@ -214,7 +207,6 @@ public class PartApp {
             ResultSet columns = metaData.getColumns(null, null, "carpart", null);
 
             ArrayList<String> columnNames = new ArrayList<>();
-
 
             while (columns.next()) {
                 String columnName = columns.getString("COLUMN_NAME");
@@ -330,23 +322,35 @@ public class PartApp {
         }
     }
 
-    private static void listTables() {
+    private static String listTables() {
         int i = 1;
+        String table = null;
+        ArrayList<String> tables = null;
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
-            DatabaseMetaData meta = conn.getMetaData();
-            ResultSet rs = meta.getTables(null, null, null, new String[]{"TABLE"});
+            DatabaseMetaData data = conn.getMetaData();
+            ResultSet rs = data.getTables(null, null, null, new String[]{"TABLE"});
+            tables = new ArrayList<>();
             System.out.println("Tables in the database:");
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
                 if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map")) {
-                    System.out.println(i + ". " + tableName);
-                    i++;
+                    tables.add(tableName);
                 }
             }
+
+            Scanner scanner = new Scanner(System.in);
+            for(int p = 0; p < tables.size(); p++){
+                System.out.println(p+1 + ". " + tables.get(p));
+            }
+            System.out.println("Enter the part category:");
+            int tableInd = scanner.nextInt();
+            table = tables.get(tableInd - 1);//tables start at 0
+
         } catch (SQLException e) {
             System.out.println("Error listing tables: " + e.getMessage());
         }
+        return table;
     }
 }
 
