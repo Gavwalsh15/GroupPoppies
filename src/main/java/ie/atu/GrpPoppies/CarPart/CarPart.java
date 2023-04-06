@@ -90,18 +90,5 @@ public class CarPart {
     }
 
 
-    @Override
-    public String toString() {
-        return "CarPart{" +
-                "partNumber=" + partNumber +
-                ", name='" + name + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", supplier='" + supplier + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", warranty='" + warranty + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
 

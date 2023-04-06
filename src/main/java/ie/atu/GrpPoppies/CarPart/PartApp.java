@@ -210,8 +210,7 @@ public class PartApp {
 
             while (columns.next()) {
                 String columnName = columns.getString("COLUMN_NAME");
-                // skip IDENTITY column as it's auto-incremented
-                if (!columnName.equals("Internal_ID")) {// is the auto increment
+                if (!columnName.equals("Internal_ID")) {// is the auto increment and will return
                     columnNames.add(columnName);
                 }
             }
@@ -323,18 +322,20 @@ public class PartApp {
     }
 
     private static String listTables() {
-        int i = 1;
+
         String table = null;
-        ArrayList<String> tables = null;
+        ArrayList<String> tables;
+
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
+
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, null, null, new String[]{"TABLE"});
             tables = new ArrayList<>();
             System.out.println("Tables in the database:");
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
-                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map")) {
+                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map")) {//IDK what these are but it returns this
                     tables.add(tableName);
                 }
             }
@@ -344,7 +345,7 @@ public class PartApp {
                 System.out.println(p+1 + ". " + tables.get(p));
             }
             System.out.println("Enter the part category:");
-            int tableInd = scanner.nextInt();
+            int tableInd = scanner.nextInt();//ind == index?? good job gavin
             table = tables.get(tableInd - 1);//tables start at 0
 
         } catch (SQLException e) {

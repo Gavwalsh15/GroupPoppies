@@ -1,13 +1,13 @@
 package ie.atu.GrpPoppies.CarPart;
 
 public class EnginePart extends CarPart{
-    private static String engineType;
-    private static double engineSize;
+    private String engineType;
+    private double engineSize;
 
     public EnginePart() {
     }
 
-    public EnginePart(double partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description) {
+    public EnginePart(double partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description, String engineType , double engineSize) {
         super(partNumber, name, manufacturer, supplier, quantity, price, warranty, description);
         this.engineType = engineType;
         this.engineSize = engineSize;
@@ -18,7 +18,7 @@ public class EnginePart extends CarPart{
     }
 
     public void setEngineType(String engineType) {
-        EnginePart.engineType = engineType;
+        this.engineType = engineType;
     }
 
     public double getEngineSize() {
@@ -26,6 +26,6 @@ public class EnginePart extends CarPart{
     }
 
     public void setEngineSize(double engineSize) {
-        EnginePart.engineSize = engineSize;
+        this.engineSize = engineSize;
     }
 }
