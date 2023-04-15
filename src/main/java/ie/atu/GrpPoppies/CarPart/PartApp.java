@@ -17,7 +17,6 @@ public class PartApp {
             // Display the menu
             int choice = 0;
 
-
             while (choice != 4) {
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
@@ -150,7 +149,6 @@ public class PartApp {
                 System.out.println("Enter Engine Size:");
                 int engineSize = scanner.nextInt();
                 Epart.setEngineSize(engineSize);
-
                 Epart.setPartNumber(partNumber);
                 Epart.setName(name);
                 Epart.setManufacturer(manufacturer);
@@ -253,9 +251,28 @@ public class PartApp {
         try {
             // establish a connection to the database
             Connection conn = DriverManager.getConnection(url, username, password);
-            // create a PreparedStatement to insert the CarPart data into the database
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO engine_parts (part_number, name, manufacturer, supplier, quantity, price, warranty, " +
-                    "description, engine_size, engine_type) VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet columns = metaData.getColumns(null, null, "Engine_parts", null);
+
+            ArrayList<String> columnNames = new ArrayList<>();
+
+            while (columns.next()) {
+                String columnName = columns.getString("COLUMN_NAME");
+                if (!columnName.equals("Internal_ID")) {// is the auto increment and will return
+                    columnNames.add(columnName);
+                }
+            }
+            String columnGet = String.join(",", columnNames);
+            String columnValues = "";
+            for (int i = 0; i < columnNames.size(); i++) {
+                columnValues += "?";//adds ? for every var
+                if (i != columnNames.size() - 1) {//stop extra , at end
+                    columnValues += ",";
+                }
+            }
+            String query = "INSERT INTO Engine_parts (" + columnGet + ") VALUES (" + columnValues + ")";
+            PreparedStatement stmt = conn.prepareStatement(query);
 
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, Epart.getPartNumber());
@@ -289,9 +306,28 @@ public class PartApp {
         try {
             // establish a connection to the database
             Connection conn = DriverManager.getConnection(url, username, password);
-            // create a PreparedStatement to insert the CarPart data into the database
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO wheel_info (part_number, name, manufacturer, supplier, quantity, price, " +
-                    "warranty, description, tyretype, tyrerating, wheelsize) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet columns = metaData.getColumns(null, null, "Engine_parts", null);
+
+            ArrayList<String> columnNames = new ArrayList<>();
+
+            while (columns.next()) {
+                String columnName = columns.getString("COLUMN_NAME");
+                if (!columnName.equals("Internal_ID")) {// is the auto increment and will return
+                    columnNames.add(columnName);
+                }
+            }
+            String columnGet = String.join(",", columnNames);
+            String columnValues = "";
+            for (int i = 0; i < columnNames.size(); i++) {
+                columnValues += "?";//adds ? for every var
+                if (i != columnNames.size() - 1) {//stop extra , at end
+                    columnValues += ",";
+                }
+            }
+            String query = "INSERT INTO wheel_info (" + columnGet + ") VALUES (" + columnValues + ")";
+            PreparedStatement stmt = conn.prepareStatement(query);
 
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, Tpart.getPartNumber());
