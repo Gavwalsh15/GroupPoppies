@@ -17,12 +17,13 @@ public class PartApp {
             // Display the menu
             int choice = 0;
 
-            while (choice != 4) {
+            while (choice != 5) {
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
                 System.out.println("2. View All Parts");
                 System.out.println("3. Delete Part");
-                System.out.println("4. Exit");
+                System.out.println("4. Update Part");
+                System.out.println("5. Exit");
                 System.out.print("Enter your choice: ");
 
                 Scanner input = new Scanner(System.in);
@@ -32,7 +33,8 @@ public class PartApp {
                     case 1 -> addCarPart();
                     case 2 -> viewParts();
                     case 3 -> deletePart();
-                    case 4 -> System.out.println("Well done no Errors I hope!");
+                    case 4 -> updatePart();
+                    case 5 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
 
@@ -44,7 +46,105 @@ public class PartApp {
         }
     }
 
-    private static void deletePart() {
+
+    private static void updatePart() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Enter part number to update:");
+            int partNumber = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+
+            Connection conn = DriverManager.getConnection(url, username, password);
+            String query = "SELECT * FROM Car_Parts WHERE part_number=?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, partNumber);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                // retrieve existing car part object
+                CarPart part = new CarPart();
+                part.setPartNumber(rs.getInt("part_number"));
+                part.setName(rs.getString("name"));
+                part.setManufacturer(rs.getString("manufacturer"));
+                part.setSupplier(rs.getString("supplier"));
+                part.setQuantity(rs.getInt("quantity"));
+                part.setPrice(rs.getDouble("price"));
+                part.setWarranty(rs.getString("warranty"));
+                part.setDescription(rs.getString("description"));
+
+                // update fields of car part object
+                System.out.println("Enter new part name:");
+                String name = scanner.nextLine();
+                if (!name.isEmpty()) {
+                    part.setName(name);
+                }
+
+                System.out.println("Enter new part manufacturer:");
+                String manufacturer = scanner.nextLine();
+                if (!manufacturer.isEmpty()) {
+                    part.setManufacturer(manufacturer);
+                }
+
+                System.out.println("Enter new part supplier:");
+                String supplier = scanner.nextLine();
+                if (!supplier.isEmpty()) {
+                    part.setSupplier(supplier);
+                }
+
+                System.out.println("Enter new part quantity:");
+                String quantityStr = scanner.nextLine();
+                if (!quantityStr.isEmpty()) {
+                    int quantity = Integer.parseInt(quantityStr);
+                    part.setQuantity(quantity);
+                }
+
+                System.out.println("Enter new part price:");
+                String priceStr = scanner.nextLine();
+                if (!priceStr.isEmpty()) {
+                    double price = Double.parseDouble(priceStr);
+                    part.setPrice(price);
+                }
+
+                System.out.println("Enter new part warranty:");
+                String warranty = scanner.nextLine();
+                if (!warranty.isEmpty()) {
+                    part.setWarranty(warranty);
+                }
+
+                System.out.println("Enter new part description:");
+                String description = scanner.nextLine();
+                if (!description.isEmpty()) {
+                    part.setDescription(description);
+                }
+
+                // save updated car part object to database
+                String updateQuery = "UPDATE Car_Parts SET part_number=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=? WHERE Intenal_ID=?";
+                PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                updateStmt.setDouble(1, part.getPartNumber());
+                updateStmt.setString(2, part.getName());
+                updateStmt.setString(3, part.getManufacturer());
+                updateStmt.setString(4, part.getSupplier());
+                updateStmt.setInt(5, part.getQuantity());
+                updateStmt.setDouble(6, part.getPrice());
+                updateStmt.setString(7, part.getWarranty());
+                updateStmt.setString(8, part.getDescription());
+                updateStmt.setInt(9, partNumber);
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Car part updated successfully.");
+                } else {
+                    System.out.println("Failed to update car part.");
+                }
+            } else {
+                System.out.println("Car part not found.");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Error Updating part: " + e.getMessage());
+        }
+    }
+
+            private static void deletePart() {
         Scanner scanner = new Scanner(System.in);
 
         String tableGet = listTables();
@@ -308,7 +408,7 @@ public class PartApp {
             Connection conn = DriverManager.getConnection(url, username, password);
 
             DatabaseMetaData metaData = conn.getMetaData();
-            ResultSet columns = metaData.getColumns(null, null, "Engine_parts", null);
+            ResultSet columns = metaData.getColumns(null, null, "Wheel_info", null);
 
             ArrayList<String> columnNames = new ArrayList<>();
 
