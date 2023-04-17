@@ -1,6 +1,5 @@
 package ie.atu.GrpPoppies.atu.productv3;
 
-import ie.atu.productv2.Book;
 
 import java.util.Scanner;
 
