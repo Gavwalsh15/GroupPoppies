@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart;public class
+package ie.atu.GrpPoppies.CarPartsV2;public class
 // This is our Car class
 public class Car {
     // We're going to store the car's registration number here as a String
