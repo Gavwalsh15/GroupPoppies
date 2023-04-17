@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class PartApp {
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
@@ -94,7 +96,7 @@ public class PartApp {
                 System.out.println("Enter new part quantity:");
                 String quantityStr = scanner.nextLine();
                 if (!quantityStr.isEmpty()) {
-                    int quantity = Integer.parseInt(quantityStr);
+                    int quantity = parseInt(quantityStr);
                     part.setQuantity(quantity);
                 }
 
@@ -192,9 +194,12 @@ public class PartApp {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Add a part to:");
-        listTables();
-        System.out.println("4. Back");//change this when you think of how
+        System.out.println("1. Car Part:");
+        System.out.println("2. Engine Part:");
+        System.out.println("3. Enter Wheel:");
+        System.out.println("4. Back:");
         int choice = scanner.nextInt();
+
 
         while (choice != 4) {
             switch (choice) {
@@ -288,8 +293,9 @@ public class PartApp {
             System.out.println("Part added:\n");
 
             System.out.println("Add a part to:");
-            listTables();
-            System.out.println("4. Back");
+            System.out.println("1. Car Part:");
+            System.out.println("2. Engine Part:");
+            System.out.println("3. Enter Wheel:");
             choice = scanner.nextInt();
         }
     }
@@ -302,7 +308,7 @@ public class PartApp {
 
             // get column names from the carpart table
             DatabaseMetaData metaData = conn.getMetaData();
-            ResultSet columns = metaData.getColumns(null, null, "carpart", null);
+            ResultSet columns = metaData.getColumns(null, null, "Car_Parts", null);
 
             ArrayList<String> columnNames = new ArrayList<>();
 
@@ -320,7 +326,7 @@ public class PartApp {
                     columnValues += ",";
                 }
             }
-            String query = "INSERT INTO carpart (" + columnGet + ") VALUES (" + columnValues + ")";
+            String query = "INSERT INTO Car_Parts (" + columnGet + ") VALUES (" + columnValues + ")";
             PreparedStatement stmt = conn.prepareStatement(query);
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, part.getPartNumber());
