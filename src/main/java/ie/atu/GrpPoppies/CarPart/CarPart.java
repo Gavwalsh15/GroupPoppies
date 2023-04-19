@@ -1,19 +1,20 @@
 package ie.atu.GrpPoppies.CarPart;
 
 public class CarPart {
-        private static int partNumber;
-        private static String name;
-        private static String manufacturer;
-        private static String supplier;
-        private static int quantity;
-        private static double price;
-        private static String warranty;
-        private static String description;
+        private double partNumber;
+        private String name;
+        private String manufacturer;
+        private String supplier;
+        private int quantity;
+        private double price;
+        private String warranty;
+        private String description;
+
 
     public CarPart() {
     }
 
-    public CarPart(int partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description) {
+    public CarPart(double partNumber, String name, String manufacturer, String supplier, int quantity, double price, String warranty, String description) {
         this.partNumber = partNumber;
         this.name = name;
         this.manufacturer = manufacturer;
@@ -24,11 +25,11 @@ public class CarPart {
         this.description = description;
     }
 
-    public int getPartNumber() {
+    public double getPartNumber() {
         return partNumber;
     }
 
-    public void setPartNumber(int partNumber) {
+    public void setPartNumber(double partNumber) {
         this.partNumber = partNumber;
     }
 
@@ -90,3 +91,4 @@ public class CarPart {
 
 
 }
+
