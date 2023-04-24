@@ -6,17 +6,21 @@ public class Customer {
     private String email;
     private int number;
 
-    public Customer(String CustName, String email, int number) {
-        this.CustomerName = CustName;
+    public Customer(String CustomerName, String email, int number) {
+        this.CustomerName = CustomerName;
         this.email = email;
         this.number = number;
     }
 
-    public String getCustName() {
+    public Customer() {
+
+    }
+
+    public String getCustomerName() {
         return CustomerName;
     }
 
-    public void setCustName(String name) {
+    public void setCustomerName(String name) {
         this.CustomerName = name;
     }
 
