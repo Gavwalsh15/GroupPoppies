@@ -26,12 +26,14 @@ public class CarPart {
     }
 
     //added interfacing
-    public class CarPartDB implements GarageApp{
+    public static void main(String[] args) {
+        String viewParts;
+        String addCarPart;
+        String deleteCarPart;
+    }
 
-        public void addCarPart(){
-        }
-        public void updateCarPart(){
-        }
+    public interface GarageApp{
+
     }
 
 
@@ -98,7 +100,5 @@ public class CarPart {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }
 
