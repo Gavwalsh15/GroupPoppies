@@ -169,4 +169,12 @@ public class CarPartDB {
             System.out.println("Error Updating part: " + e.getMessage());
         }
     }
+
+    //added interfacing
+    public static void addCarPart() {
+    }
+    public static void updateCarPart() {
+    }
+    public static void deleteCarPart() {
+    }
 }

@@ -1,7 +1,7 @@
 package ie.atu.GrpPoppies.CarPart;
 
 public class Customer {
-    private String name;
+    private String name;        //name overlaps with customer
     private String email;
     private int number;
 
@@ -35,3 +35,5 @@ public class Customer {
         this.number = number;
     }
 }
+
+//done

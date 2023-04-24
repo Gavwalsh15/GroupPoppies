@@ -25,6 +25,16 @@ public class CarPart {
         this.description = description;
     }
 
+    //added interfacing
+    public class CarPartDB implements GarageApp{
+
+        public void addCarPart(){
+        }
+        public void updateCarPart(){
+        }
+    }
+
+
     public double getPartNumber() {
         return partNumber;
     }
