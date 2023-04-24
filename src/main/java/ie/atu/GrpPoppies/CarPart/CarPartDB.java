@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
+
 public class CarPartDB {
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
