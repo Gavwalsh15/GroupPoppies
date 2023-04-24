@@ -69,7 +69,7 @@ public class CustomerDB {
 
             Connection conn = DriverManager.getConnection(url, username, password);
 
-            String query = "SELECT * FROM Car_Parts WHERE part_number=?";
+            String query = "SELECT * FROM Customer WHERE detail=?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, partNumber);
             ResultSet rs = stmt.executeQuery();
@@ -88,7 +88,7 @@ public class CustomerDB {
                     CustomerDetail.setCustomerName(name);
                 }
 
-                System.out.println("Enter new part manufacturer:");
+                System.out.println("Enter new email:");
                 String manufacturer = scanner.nextLine();
                 if (!manufacturer.isEmpty()) {
                     CustomerDetail.setEmail(manufacturer);
@@ -110,12 +110,12 @@ public class CustomerDB {
                 updateStmt.setInt(3, CustomerDetail.getNumber());
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {
-                    System.out.println("Car part updated successfully.");
+                    System.out.println("Customer updated successfully.");
                 } else {
                     System.out.println("Failed to update car part.");
                 }
             } else {
-                System.out.println("Car part not found.");
+                System.out.println("Customer not found.");
             }
             conn.close();
         } catch (SQLException e) {
