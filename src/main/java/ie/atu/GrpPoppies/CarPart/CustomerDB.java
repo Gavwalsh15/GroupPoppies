@@ -4,20 +4,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
+import static java.lang.Double.parseDouble;
+
 
 public class CustomerDB {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=Customer";
+    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
     static String password = "GroupPoppies2023";
 
-    public static void savetoDatabase(String CustomerName, String email, int number) {
+    public static void savetoDatabase(String fname,String lname, String email, double number) {
         Customer CustomerDetail = new Customer();
 
-
-        CustomerDetail.setCustomerName();
+        CustomerDetail.setFname(fname);
+        CustomerDetail.setLname(lname);
         CustomerDetail.setEmail(email);
-        CustomerDetail.setNumber(number);
+        CustomerDetail.setPhoneNum(number);
 
         try {
             // establish a connection to the database
@@ -46,9 +47,10 @@ public class CustomerDB {
             String query = "INSERT INTO Customer (" + columnGet + ") VALUES (" + columnValues + ")";
             PreparedStatement stmt = conn.prepareStatement(query);
             // set the parameters for the PreparedStatement
-            stmt.setString(1, CustomerDetail.setCustomerName());
-            stmt.setString(2, CustomerDetail.setEmail());
-            stmt.setInt(3, CustomerDetail.setNumber());
+            stmt.setString(1, CustomerDetail.getFname());
+            stmt.setString(2, CustomerDetail.getLname());
+            stmt.setString(3, CustomerDetail.getEmail());
+            stmt.setDouble(4, CustomerDetail.getPhoneNum());
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
@@ -65,29 +67,39 @@ public class CustomerDB {
         return;
     }
 
-    public static void updateCustomer(int CustomerID) {
+    public static void updateCustomer() {
         try {
             Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter Customer ID to update:");
+            int customerID = scanner.nextInt();
 
             Connection conn = DriverManager.getConnection(url, username, password);
 
-            String query = "SELECT * FROM Customer WHERE CustomerDetail=?";
+            String query = "SELECT * FROM Customer WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, CustomerID);
+            stmt.setInt(1, customerID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing CustomerDetail object
                 Customer CustomerDetail = new Customer();
-                CustomerDetail.setCustomerName();
+
+                CustomerDetail.setFname(rs.getString("Fname"));
+                CustomerDetail.setLname(rs.getString("Fname"));
                 CustomerDetail.setEmail(rs.getString("email"));
-                CustomerDetail.setNumber(rs.getInt("number"));
+                CustomerDetail.setPhoneNum(rs.getDouble("number"));
 
 
                 // update fields of Customer object
-                System.out.println("Enter Customer:");
-                String name = scanner.nextLine();
-                if (!name.isEmpty()) {
-                    CustomerDetail.setCustomerName();
+                System.out.println("Enter Customer First Name:");
+                String Fname = scanner.nextLine();
+                if (!Fname.isEmpty()) {
+                    CustomerDetail.setFname(Fname);
+                }
+
+                System.out.println("Enter Customer Last Name:");
+                String Lname = scanner.nextLine();
+                if (!Lname.isEmpty()) {
+                    CustomerDetail.setFname(Lname);
                 }
 
                 System.out.println("Enter new email:");
@@ -100,16 +112,19 @@ public class CustomerDB {
                 System.out.println("Enter new number:");
                 String numberStr = scanner.nextLine();
                 if (!numberStr.isEmpty()) {
-                    int number = parseInt(numberStr);
-                    CustomerDetail.setNumber(number);
+                    double number = parseDouble(numberStr);
+                    CustomerDetail.setPhoneNum(number);
                 }
 
                 // save updated car part object to database
-                String updateQuery = "UPDATE Customer SET details=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=? WHERE Intenal_ID=?";
+                String updateQuery = "UPDATE Customer SET Fname=?, Lname=?, Email=?, PhoneNumber=? WHERE Internal_ID=?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
-                updateStmt.setString(1, CustomerDetail.getCustomerName());
-                updateStmt.setString(2, CustomerDetail.getEmail());
-                updateStmt.setInt(3, CustomerDetail.getNumber());
+                updateStmt.setString(1, CustomerDetail.getFname());
+                updateStmt.setString(2, CustomerDetail.getLname());
+                updateStmt.setString(3, CustomerDetail.getEmail());
+                updateStmt.setDouble(4, CustomerDetail.getPhoneNum());
+                updateStmt.setDouble(5, customerID);
+
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {
                     System.out.println("Customer updated successfully.");
