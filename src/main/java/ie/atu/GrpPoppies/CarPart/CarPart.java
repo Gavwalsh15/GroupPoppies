@@ -10,7 +10,6 @@ public class CarPart {
         private String warranty;
         private String description;
 
-
     public CarPart() {
     }
 
@@ -31,9 +30,7 @@ public class CarPart {
         String addCarPart;
         String deleteCarPart;
     }
-
     public interface GarageApp{
-
     }
 
 

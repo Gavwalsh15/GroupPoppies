@@ -172,10 +172,12 @@ public class CarPartDB {    //implements GarageApp
 
     //added interfacing
     //dont know how to add search function
+    /*
     public static void addCarPart() {
     }
     public static void updateCarPart() {
     }
     public static void deleteCarPart() {
+    */
     }
-}
+

@@ -7,13 +7,15 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class CustomerDB {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
+    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=Customer";
     static String username = "CloudSAe622a702@carpartserver";
     static String password = "GroupPoppies2023";
+
     public static void savetoDatabase(String CustomerName, String email, int number) {
         Customer CustomerDetail = new Customer();
 
-        CustomerDetail.setCustomerName(CustomerName);
+
+        CustomerDetail.setCustomerName();
         CustomerDetail.setEmail(email);
         CustomerDetail.setNumber(number);
 
@@ -21,7 +23,7 @@ public class CustomerDB {
             // establish a connection to the database
             Connection conn = DriverManager.getConnection(url, username, password);
 
-            // get column names from the carpart table
+            // get column names from the Customer table
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, "Customer", null);
 
@@ -44,9 +46,9 @@ public class CustomerDB {
             String query = "INSERT INTO Customer (" + columnGet + ") VALUES (" + columnValues + ")";
             PreparedStatement stmt = conn.prepareStatement(query);
             // set the parameters for the PreparedStatement
-            CustomerDetail.setCustomerName(CustomerName);
-            CustomerDetail.setEmail(email);
-            CustomerDetail.setNumber(number);
+            stmt.setString(1, CustomerDetail.setCustomerName());
+            stmt.setString(2, CustomerDetail.setEmail());
+            stmt.setInt(3, CustomerDetail.setNumber());
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
@@ -63,43 +65,43 @@ public class CustomerDB {
         return;
     }
 
-    public static void updateCustomer(int partNumber) {
+    public static void updateCustomer(int CustomerID) {
         try {
             Scanner scanner = new Scanner(System.in);
 
             Connection conn = DriverManager.getConnection(url, username, password);
 
-            String query = "SELECT * FROM Customer WHERE detail=?";
+            String query = "SELECT * FROM Customer WHERE CustomerDetail=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, partNumber);
+            stmt.setInt(1, CustomerID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing CustomerDetail object
                 Customer CustomerDetail = new Customer();
-                CustomerDetail.setCustomerName(rs.getString("customer"));
+                CustomerDetail.setCustomerName();
                 CustomerDetail.setEmail(rs.getString("email"));
                 CustomerDetail.setNumber(rs.getInt("number"));
 
 
-                // update fields of car part object
+                // update fields of Customer object
                 System.out.println("Enter Customer:");
                 String name = scanner.nextLine();
                 if (!name.isEmpty()) {
-                    CustomerDetail.setCustomerName(name);
+                    CustomerDetail.setCustomerName();
                 }
 
                 System.out.println("Enter new email:");
-                String manufacturer = scanner.nextLine();
-                if (!manufacturer.isEmpty()) {
-                    CustomerDetail.setEmail(manufacturer);
+                String email = scanner.nextLine();
+                if (!email.isEmpty()) {
+                    CustomerDetail.setEmail(email);
                 }
 
 
                 System.out.println("Enter new number:");
-                String quantityStr = scanner.nextLine();
-                if (!quantityStr.isEmpty()) {
-                    int quantity = parseInt(quantityStr);
-                    CustomerDetail.setNumber(quantity);
+                String numberStr = scanner.nextLine();
+                if (!numberStr.isEmpty()) {
+                    int number = parseInt(numberStr);
+                    CustomerDetail.setNumber(number);
                 }
 
                 // save updated car part object to database
@@ -119,7 +121,7 @@ public class CustomerDB {
             }
             conn.close();
         } catch (SQLException e) {
-            System.out.println("Error Updating part: " + e.getMessage());
+            System.out.println("Error Updating Customer: " + e.getMessage());
         }
     }
 }

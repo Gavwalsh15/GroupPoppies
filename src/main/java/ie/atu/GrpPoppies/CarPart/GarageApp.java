@@ -14,9 +14,9 @@ public interface GarageApp {
         System.out.println("update");
         System.out.println("search");
 
-        CarPartDB.addCarPart();
-        CarPartDB.updateCarPart();
-        CarPartDB.deleteCarPart();
+        //CarPartDB.addCarPart();
+        //CarPartDB.updateCarPart();
+        //CarPartDB.deleteCarPart();
     }
 }
 
