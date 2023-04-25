@@ -13,12 +13,14 @@ public class PartApp {
             int choice = 0;
 
             while (choice != 5) {
+
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
                 System.out.println("2. View All Parts");
                 System.out.println("3. Delete Part");
                 System.out.println("4. Update Part");
-                System.out.println("5. Exit");
+                System.out.println("5. Customer");
+                System.out.println("6. Exit");
                 System.out.print("Enter your choice: ");
 
                 Scanner input = new Scanner(System.in);
@@ -29,7 +31,8 @@ public class PartApp {
                     case 2 -> ReadTables.viewParts();
                     case 3 -> DeleteDB.deletePart();
                     case 4 -> updatePart();
-                    case 5 -> System.out.println("Well done no Errors I hope!");
+                    case 5 -> Customer();
+                    case 6 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
 
