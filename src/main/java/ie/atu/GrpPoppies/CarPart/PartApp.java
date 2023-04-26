@@ -9,13 +9,16 @@ public class PartApp {
             // Display the menu
             int choice = 0;
 
-            while (choice != 5) {
+            while (choice != 7) {
+
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
                 System.out.println("2. View All Parts");
                 System.out.println("3. Delete Part");
                 System.out.println("4. Update Part");
-                System.out.println("5. Exit");
+                System.out.println("5. Add Customer");
+                System.out.println("6. Update Customer");
+                System.out.println("7. Exit");
                 System.out.print("Enter your choice: ");
 
                 Scanner input = new Scanner(System.in);
@@ -26,7 +29,9 @@ public class PartApp {
                     case 2 -> ReadTables.viewParts();
                     case 3 -> DeleteDB.deletePart();
                     case 4 -> updatePart();
-                    case 5 -> System.out.println("Well done no Errors I hope!");
+                    case 5 -> addCustomer();
+                    case 6 -> CustomerDB.updateCustomer();
+                    case 7 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
 
@@ -36,6 +41,24 @@ public class PartApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void addCustomer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Add a Customer:");
+        System.out.println("Enter Customer First Name:");
+        String fname = scanner.nextLine();
+
+        System.out.println("Enter Customer Last Name:");
+        String lname = scanner.nextLine();
+
+        System.out.println("Enter Customer Email:");
+        String email = scanner.nextLine();
+
+        System.out.println("Enter Customer Number:");
+        double phone = scanner.nextDouble();
+
+        CustomerDB.savetoDatabase(fname,lname,email,phone);
     }
 
 
@@ -132,6 +155,7 @@ public class PartApp {
             System.out.println("1. Car Part:");
             System.out.println("2. Engine Part:");
             System.out.println("3. Enter Wheel:");
+            System.out.println("4. Back:");
             choice = scanner.nextInt();
         }
     }

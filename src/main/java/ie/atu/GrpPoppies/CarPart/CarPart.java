@@ -10,7 +10,6 @@ public class CarPart {
         private String warranty;
         private String description;
 
-
     public CarPart() {
     }
 
@@ -24,6 +23,16 @@ public class CarPart {
         this.warranty = warranty;
         this.description = description;
     }
+
+    //added interfacing
+    public static void main(String[] args) {
+        String viewParts;
+        String addCarPart;
+        String deleteCarPart;
+    }
+    public interface GarageApp{
+    }
+
 
     public double getPartNumber() {
         return partNumber;
@@ -88,7 +97,5 @@ public class CarPart {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }
 

@@ -15,13 +15,17 @@ public class ReadTables {
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int numColumns = rsmd.getColumnCount();
-            System.out.println(numColumns);
+            for (int i = 1; i <= numColumns; i++) {
+                System.out.printf("%-20s", rsmd.getColumnName(i));//have a look at this replaces \t\t
+            }
+            System.out.println("\n");
             while (rs.next()) {
                 for (int i = 1; i <= numColumns; i++) {
-                    System.out.print(rsmd.getColumnName(i) + ": " + rs.getString(i) + "\t");
+                    System.out.printf("%-20s", rs.getString(i));
                 }
-                System.out.println("\n");
+                System.out.println();
             }
+
         } catch (SQLException e) {
             System.out.println("Error retrieving car parts: " + e.getMessage());
         }
