@@ -6,9 +6,6 @@ import java.util.Scanner;
 public class PartApp {
     public static void main(String[] args) {
         try {
-            // Load the SQL Server JDBC driver
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
             // Display the menu
             int choice = 0;
 
@@ -72,7 +69,7 @@ public class PartApp {
         int partNumber = scanner.nextInt();
         scanner.nextLine(); // consume the newline character
         //change to switch when you are ready good lad :)
-        if (Objects.equals(tableGet, "Car_Parts")) {//idk does this work :)
+        if (Objects.equals(tableGet, "Car_Parts")) {//IDK does this work :)
             CarPartDB.updatePart(partNumber);
         }
     }

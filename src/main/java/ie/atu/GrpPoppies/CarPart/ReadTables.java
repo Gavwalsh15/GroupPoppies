@@ -6,14 +6,10 @@ import java.util.Scanner;
 
 
 public class ReadTables {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
-
     public static void viewParts() {
         String tableGet = ReadTables.listTables();
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableGet);
 
@@ -37,7 +33,7 @@ public class ReadTables {
     public static String listTables() {
         String table = null;
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, null, null, new String[]{"TABLE"});
@@ -66,7 +62,7 @@ public class ReadTables {
 
     public static void listColumns() {//list column names
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
             String tableGet = listTables();
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, tableGet, null);

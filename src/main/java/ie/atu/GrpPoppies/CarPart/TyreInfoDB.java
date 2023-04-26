@@ -7,9 +7,6 @@ package ie.atu.GrpPoppies.CarPart;
         import static java.lang.Integer.parseInt;
 
 public class TyreInfoDB {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
     public static void savetoDatabase(String description, String warranty, double price, String supplier, String manufacturer, String name, double partNumber, int quantity, int tyreSize, String tyreRating, String tyreType) {
         TyreInfo Tpart = new TyreInfo();
         Tpart.setPartNumber(partNumber);
@@ -25,7 +22,7 @@ public class TyreInfoDB {
         Tpart.setWheelSize(tyreSize);
         try {
             // establish a connection to the database
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, "Wheel_info", null);
@@ -82,7 +79,7 @@ public class TyreInfoDB {
         try {
             Scanner scanner = new Scanner(System.in);
 
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
             String query = "SELECT * FROM Wheel_info WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, Internal_ID);

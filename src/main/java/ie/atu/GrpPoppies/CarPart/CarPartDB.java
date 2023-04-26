@@ -9,10 +9,7 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class CarPartDB {    //implements GarageApp
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
+public class CarPartDB {
     public static void savetoDatabase(String description, String warranty, double price, String supplier, String manufacturer, String name, double partNumber, int quantity) {
         CarPart part = new CarPart();
 
@@ -26,8 +23,7 @@ public class CarPartDB {    //implements GarageApp
         part.setDescription(description);
 
         try {
-            // establish a connection to the database
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             // get column names from the carpart table
             DatabaseMetaData metaData = conn.getMetaData();
@@ -80,7 +76,7 @@ public class CarPartDB {    //implements GarageApp
         try {
             Scanner scanner = new Scanner(System.in);
 
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             String query = "SELECT * FROM Car_Parts WHERE part_number=?";
             PreparedStatement stmt = conn.prepareStatement(query);
