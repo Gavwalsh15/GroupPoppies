@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class CarPartDB {
+public class CarPartDB {    //implements GarageApp
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
     static String password = "GroupPoppies2023";
@@ -169,4 +169,15 @@ public class CarPartDB {
             System.out.println("Error Updating part: " + e.getMessage());
         }
     }
-}
+
+    //added interfacing
+    //dont know how to add search function
+    /*
+    public static void addCarPart() {
+    }
+    public static void updateCarPart() {
+    }
+    public static void deleteCarPart() {
+    */
+    }
+
