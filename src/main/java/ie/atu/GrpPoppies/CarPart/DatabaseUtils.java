@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.pool;
+package ie.atu.GrpPoppies.CarPart;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -8,9 +8,10 @@ import java.sql.SQLException;
 
 public class DatabaseUtils {
     //later we will look at storing this type of data in a better location like a properties file
-    private static final String URL = "jdbc:mysql://localhost:3306/exampledatabase";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
+    private static final String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
+    private static final String username = "CloudSAe622a702@carpartserver";
+    private static final String password = "GroupPoppies2023";
+
     private static final DataSource dataSource;
 
     //notice the static has no name?
@@ -19,9 +20,9 @@ public class DatabaseUtils {
     // any other one-time setup that the class may require.
     static {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setURL(URL);
-        mysqlDataSource.setUser(USERNAME);
-        mysqlDataSource.setPassword(PASSWORD);
+        mysqlDataSource.setURL(url);
+        mysqlDataSource.setUser(username);
+        mysqlDataSource.setPassword(password);
         dataSource = mysqlDataSource;
     }
 
