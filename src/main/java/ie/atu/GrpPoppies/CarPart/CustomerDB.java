@@ -7,13 +7,13 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 
 
-public class CustomerDB {
+public class CustomerDB implements CustomerInterface {
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
     static String password = "GroupPoppies2023";
 
     public static void savetoDatabase(String fname,String lname, String email, double number) {
-        Customer CustomerDetail = new Customer();
+        CustomerInterface CustomerDetail = new Customer();
 
         CustomerDetail.setFname(fname);
         CustomerDetail.setLname(lname);
@@ -81,7 +81,7 @@ public class CustomerDB {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing CustomerDetail object
-                Customer CustomerDetail = new Customer();
+                CustomerInterface CustomerDetail = CustomerDB.getProduct(productCode);       //Customer CustomerDetail = new Customer();
 
                 CustomerDetail.setFname(rs.getString("Fname"));
                 CustomerDetail.setLname(rs.getString("Fname"));
@@ -139,6 +139,13 @@ public class CustomerDB {
             System.out.println("Error Updating Customer: " + e.getMessage());
         }
     }
+
+    @Override
+    public void setfname(String fname) {
+
+    }
+
+
 }
 
 

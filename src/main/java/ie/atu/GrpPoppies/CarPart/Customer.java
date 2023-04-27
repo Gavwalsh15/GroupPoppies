@@ -1,7 +1,7 @@
 package ie.atu.GrpPoppies.CarPart;
 
 //done
-public class Customer {
+public class Customer implements CustomerInterface {
     public String fname;
     public String lname;
     public String email;
@@ -49,7 +49,40 @@ public class Customer {
         this.phoneNum = phoneNum;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNum=" + phoneNum +
+                '}';
+    }
 
+    @Override
+    public String setfname(String fname) {
+
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public void setlname(String lname) {
+
+    }
+
+    @Override
+    public void setemail(String email) {
+
+    }
+
+    @Override
+    public void setphoneNum(String phoneNum) {
+
+    }
 }
 
 
