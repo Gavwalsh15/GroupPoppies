@@ -14,9 +14,6 @@ public class Customer implements CustomerInterface {
         this.phoneNum = phoneNum;
     }
 
-    //public Customer() {
-    //}
-
     public String getFname() {
         return fname;
     }
@@ -47,48 +44,6 @@ public class Customer implements CustomerInterface {
 
     public void setPhoneNum(double phoneNum) {
         this.phoneNum = phoneNum;
-    }
-
-
-
-    @Override
-    public void setlname() {
-
-    }
-
-    @Override
-    public void setfname() {
-
-    }
-
-    @Override
-    public void setemail() {
-
-    }
-
-    @Override
-    public void setphoneNum() {
-
-    }
-
-    @Override
-    public void setLname() {
-
-    }
-
-    @Override
-    public void setFname() {
-
-    }
-
-    @Override
-    public void setEmail() {
-
-    }
-
-    @Override
-    public void setPhoneNum() {
-
     }
 
     @Override

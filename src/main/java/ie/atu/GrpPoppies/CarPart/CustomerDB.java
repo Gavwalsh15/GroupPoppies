@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
 
-
 public class CustomerDB implements CustomerInterface {
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
@@ -141,58 +140,19 @@ public class CustomerDB implements CustomerInterface {
     }
 
     @Override
-    public void setlname() {
-
-    }
-
-    @Override
-    public void setfname() {
-
-    }
-
-    @Override
-    public void setemail() {
-
-    }
-
-    @Override
-    public void setphoneNum() {
-
-    }
-
-    @Override
-    public void setLname() {
-
-    }
-
-    @Override
-    public void setFname() {
-
-    }
-
-    @Override
-    public void setEmail() {
-
-    }
-
-    @Override
-    public void setPhoneNum() {
-
-    }
-
-    @Override
     public String getFname() {
-        return null;
+        return CustomerDetail.getFname();
     }
 
     @Override
     public String getLname() {
-        return null;
+        return CustomerDetail.getLname();
     }
+
 
     @Override
     public String getEmail() {
-        return null;
+        return CustomerDetail.getEmail();
     }
 
     @Override
@@ -200,25 +160,7 @@ public class CustomerDB implements CustomerInterface {
         return 0;
     }
 
-    @Override
-    public void setEmail(String email) {
 
-    }
-
-    @Override
-    public void setPhoneNum(double number) {
-
-    }
-
-    @Override
-    public void setFname(String lname) {
-
-    }
-
-    @Override
-    public void setLname(String lname) {
-
-    }
 }
 
 
