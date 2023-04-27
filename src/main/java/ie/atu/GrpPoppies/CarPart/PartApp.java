@@ -6,21 +6,19 @@ import java.util.Scanner;
 public class PartApp {
     public static void main(String[] args) {
         try {
-            // Load the SQL Server JDBC driver
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
             // Display the menu
             int choice = 0;
 
-            while (choice != 5) {
+            while (choice != 7) {
 
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
                 System.out.println("2. View All Parts");
                 System.out.println("3. Delete Part");
                 System.out.println("4. Update Part");
-                System.out.println("5. Customer");
-                System.out.println("6. Exit");
+                System.out.println("5. Add Customer");
+                System.out.println("6. Update Customer");
+                System.out.println("7. Exit");
                 System.out.print("Enter your choice: ");
 
                 Scanner input = new Scanner(System.in);
@@ -31,8 +29,9 @@ public class PartApp {
                     case 2 -> ReadTables.viewParts();
                     case 3 -> DeleteDB.deletePart();
                     case 4 -> updatePart();
-                    case 5 -> Customer();
-                    case 6 -> System.out.println("Well done no Errors I hope!");
+                    case 5 -> addCustomer();
+                    case 6 -> CustomerDB.updateCustomer();
+                    case 7 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
 
@@ -44,6 +43,24 @@ public class PartApp {
         }
     }
 
+    private static void addCustomer() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Add a Customer:");
+        System.out.println("Enter Customer First Name:");
+        String fname = scanner.nextLine();
+
+        System.out.println("Enter Customer Last Name:");
+        String lname = scanner.nextLine();
+
+        System.out.println("Enter Customer Email:");
+        String email = scanner.nextLine();
+
+        System.out.println("Enter Customer Number:");
+        double phone = scanner.nextDouble();
+
+        CustomerDB.savetoDatabase(fname,lname,email,phone);
+    }
+
 
     private static void updatePart() {
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +69,7 @@ public class PartApp {
         int partNumber = scanner.nextInt();
         scanner.nextLine(); // consume the newline character
         //change to switch when you are ready good lad :)
-        if (Objects.equals(tableGet, "Car_Parts")) {//idk does this work :)
+        if (Objects.equals(tableGet, "Car_Parts")) {//IDK does this work :)
             CarPartDB.updatePart(partNumber);
         }
     }
@@ -138,6 +155,7 @@ public class PartApp {
             System.out.println("1. Car Part:");
             System.out.println("2. Engine Part:");
             System.out.println("3. Enter Wheel:");
+            System.out.println("4. Back:");
             choice = scanner.nextInt();
         }
     }

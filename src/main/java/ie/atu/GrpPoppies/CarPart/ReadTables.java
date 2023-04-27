@@ -6,26 +6,26 @@ import java.util.Scanner;
 
 
 public class ReadTables {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
-
     public static void viewParts() {
         String tableGet = ReadTables.listTables();
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableGet);
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int numColumns = rsmd.getColumnCount();
-            System.out.println(numColumns);
+            for (int i = 1; i <= numColumns; i++) {
+                System.out.printf("%-20s", rsmd.getColumnName(i));//have a look at this replaces \t\t
+            }
+            System.out.println("\n");
             while (rs.next()) {
                 for (int i = 1; i <= numColumns; i++) {
-                    System.out.print(rsmd.getColumnName(i) + ": " + rs.getString(i) + "\t");
+                    System.out.printf("%-20s", rs.getString(i));
                 }
-                System.out.println("\n");
+                System.out.println();
             }
+
         } catch (SQLException e) {
             System.out.println("Error retrieving car parts: " + e.getMessage());
         }
@@ -33,7 +33,7 @@ public class ReadTables {
     public static String listTables() {
         String table = null;
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, null, null, new String[]{"TABLE"});
@@ -62,7 +62,7 @@ public class ReadTables {
 
     public static void listColumns() {//list column names
         try {
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
             String tableGet = listTables();
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, tableGet, null);

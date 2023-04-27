@@ -2,40 +2,35 @@ package ie.atu.GrpPoppies.CarPart;
 
 //done
 public class Customer {
-    private String CustomerName;
-    private String email;
-    private int number;
+    public String fname;
+    public String lname;
+    public String email;
+    public double phoneNum;
+
+    public Customer(String fname, String lname, String email, double phoneNum) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phoneNum = phoneNum;
+    }
 
     public Customer() {
     }
 
-    public Customer(String CustomerName, String email, int number) {
-        this.CustomerName = CustomerName;
-        this.email = email;
-        this.number = number;
+    public String getFname() {
+        return fname;
     }
 
-
-    public String setCustomerName() {
-        return CustomerName;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String setEmail() {
-        return email;
+    public String getLname() {
+        return lname;
     }
 
-    public int setNumber() {
-        return number;
-    }
-
-
-
-    public String getCustomerName() {
-        return CustomerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getEmail() {
@@ -46,13 +41,15 @@ public class Customer {
         this.email = email;
     }
 
-    public int getNumber() {
-        return number;
+    public double getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPhoneNum(double phoneNum) {
+        this.phoneNum = phoneNum;
     }
+
+
 }
 
 
