@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
 
-public class CustomerDB implements CustomerInterface {
+public class CustomerDB {
     static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
     static String username = "CloudSAe622a702@carpartserver";
     static String password = "GroupPoppies2023";
@@ -63,7 +63,6 @@ public class CustomerDB implements CustomerInterface {
         } catch (SQLException e) {
             System.out.println("Error saving Customer to database: " + e.getMessage());
         }
-        return;
     }
 
     public static void updateCustomer() {
@@ -138,29 +137,6 @@ public class CustomerDB implements CustomerInterface {
             System.out.println("Error Updating Customer: " + e.getMessage());
         }
     }
-
-    @Override
-    public String getFname() {
-        return CustomerDetail.getFname();
-    }
-
-    @Override
-    public String getLname() {
-        return CustomerDetail.getLname();
-    }
-
-
-    @Override
-    public String getEmail() {
-        return CustomerDetail.getEmail();
-    }
-
-    @Override
-    public double getPhoneNum() {
-        return 0;
-    }
-
-
 }
 
 

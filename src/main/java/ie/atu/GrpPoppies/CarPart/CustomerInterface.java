@@ -18,6 +18,5 @@ public interface CustomerInterface {       //Basically adds abstraction meaning 
     void setEmail(String email);
     void setPhoneNum(double number);
 
-
 }
 
