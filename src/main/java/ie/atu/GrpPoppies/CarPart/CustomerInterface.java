@@ -7,5 +7,26 @@ public interface CustomerInterface {       //Basically adds abstraction meaning 
     void setfname();
     void setemail();
     void setphoneNum();
+
+    void setLname();
+    void setFname();
+    void setEmail();
+    void setPhoneNum();
+
+    String getFname();
+
+    String getLname();
+
+    String getEmail();
+
+    double getPhoneNum();
+
+    void setEmail(String email);
+
+    void setPhoneNum(double number);
+
+    void setFname(String lname);
+
+    void setLname(String lname);
 }
 

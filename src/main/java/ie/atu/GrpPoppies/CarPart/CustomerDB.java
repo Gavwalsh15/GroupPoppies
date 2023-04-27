@@ -13,7 +13,7 @@ public class CustomerDB implements CustomerInterface {
     static String password = "GroupPoppies2023";
 
     public static void savetoDatabase(String fname,String lname, String email, double number) {
-        CustomerInterface CustomerDetail = new Customer();
+        CustomerInterface CustomerDetail = new Customer(fname, lname, email, number);
 
         CustomerDetail.setFname(fname);
         CustomerDetail.setLname(lname);
@@ -81,10 +81,10 @@ public class CustomerDB implements CustomerInterface {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing CustomerDetail object
-                CustomerInterface CustomerDetail = CustomerDB.getProduct(productCode);       //Customer CustomerDetail = new Customer();
+                CustomerInterface CustomerDetail = new Customer(rs.getString("Fname"), rs.getString("Lname"), rs.getString("Email"), rs.getDouble("PhoneNumber"));       //Customer CustomerDetail = new Customer();
 
                 CustomerDetail.setFname(rs.getString("Fname"));
-                CustomerDetail.setLname(rs.getString("Fname"));
+                CustomerDetail.setLname(rs.getString("Lname"));
                 CustomerDetail.setEmail(rs.getString("email"));
                 CustomerDetail.setPhoneNum(rs.getDouble("number"));
 
@@ -141,11 +141,84 @@ public class CustomerDB implements CustomerInterface {
     }
 
     @Override
-    public void setfname(String fname) {
+    public void setlname() {
 
     }
 
+    @Override
+    public void setfname() {
 
+    }
+
+    @Override
+    public void setemail() {
+
+    }
+
+    @Override
+    public void setphoneNum() {
+
+    }
+
+    @Override
+    public void setLname() {
+
+    }
+
+    @Override
+    public void setFname() {
+
+    }
+
+    @Override
+    public void setEmail() {
+
+    }
+
+    @Override
+    public void setPhoneNum() {
+
+    }
+
+    @Override
+    public String getFname() {
+        return null;
+    }
+
+    @Override
+    public String getLname() {
+        return null;
+    }
+
+    @Override
+    public String getEmail() {
+        return null;
+    }
+
+    @Override
+    public double getPhoneNum() {
+        return 0;
+    }
+
+    @Override
+    public void setEmail(String email) {
+
+    }
+
+    @Override
+    public void setPhoneNum(double number) {
+
+    }
+
+    @Override
+    public void setFname(String lname) {
+
+    }
+
+    @Override
+    public void setLname(String lname) {
+
+    }
 }
 
 

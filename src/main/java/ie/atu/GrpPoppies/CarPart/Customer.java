@@ -14,8 +14,8 @@ public class Customer implements CustomerInterface {
         this.phoneNum = phoneNum;
     }
 
-    public Customer() {
-    }
+    //public Customer() {
+    //}
 
     public String getFname() {
         return fname;
@@ -49,6 +49,48 @@ public class Customer implements CustomerInterface {
         this.phoneNum = phoneNum;
     }
 
+
+
+    @Override
+    public void setlname() {
+
+    }
+
+    @Override
+    public void setfname() {
+
+    }
+
+    @Override
+    public void setemail() {
+
+    }
+
+    @Override
+    public void setphoneNum() {
+
+    }
+
+    @Override
+    public void setLname() {
+
+    }
+
+    @Override
+    public void setFname() {
+
+    }
+
+    @Override
+    public void setEmail() {
+
+    }
+
+    @Override
+    public void setPhoneNum() {
+
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -57,31 +99,6 @@ public class Customer implements CustomerInterface {
                 ", email='" + email + '\'' +
                 ", phoneNum=" + phoneNum +
                 '}';
-    }
-
-    @Override
-    public String setfname(String fname) {
-
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public void setlname(String lname) {
-
-    }
-
-    @Override
-    public void setemail(String email) {
-
-    }
-
-    @Override
-    public void setphoneNum(String phoneNum) {
-
     }
 }
 
