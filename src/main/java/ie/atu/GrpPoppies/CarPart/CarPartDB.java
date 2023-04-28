@@ -1,10 +1,9 @@
 package ie.atu.GrpPoppies.CarPart;
 
 
-import java.io.FileInputStream;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -25,7 +24,7 @@ public class CarPartDB {
         try {
             Connection conn = DatabaseUtils.getConnection();
 
-            // get column names from the carpart table
+            // get column names from the Carpart table
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, "Car_Parts", null);
 
@@ -72,15 +71,15 @@ public class CarPartDB {
         return;
     }
 
-    public static void updatePart(int partNumber) {
+    public static void updatePart(int Internal_ID) {
         try {
             Scanner scanner = new Scanner(System.in);
 
             Connection conn = DatabaseUtils.getConnection();
 
-            String query = "SELECT * FROM Car_Parts WHERE part_number=?";
+            String query = "SELECT * FROM Car_Parts WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, partNumber);
+            stmt.setInt(1, Internal_ID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing car part object
@@ -140,7 +139,7 @@ public class CarPartDB {
                 }
 
                 // save updated car part object to database
-                String updateQuery = "UPDATE Car_Parts SET part_number=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=? WHERE Intenal_ID=?";
+                String updateQuery = "UPDATE Car_Parts SET part_number=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=? WHERE Internal_ID=?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
                 updateStmt.setDouble(1, part.getPartNumber());
                 updateStmt.setString(2, part.getName());
@@ -150,7 +149,7 @@ public class CarPartDB {
                 updateStmt.setDouble(6, part.getPrice());
                 updateStmt.setString(7, part.getWarranty());
                 updateStmt.setString(8, part.getDescription());
-                updateStmt.setInt(9, partNumber);
+                updateStmt.setInt(9, Internal_ID);
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {
                     System.out.println("Car part updated successfully.");
@@ -165,15 +164,5 @@ public class CarPartDB {
             System.out.println("Error Updating part: " + e.getMessage());
         }
     }
-
-    //added interfacing
-    //dont know how to add search function
-    /*
-    public static void addCarPart() {
-    }
-    public static void updateCarPart() {
-    }
-    public static void deleteCarPart() {
-    */
-    }
+}
 

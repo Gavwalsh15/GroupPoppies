@@ -6,23 +6,13 @@ import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
 
-
 public class CustomerDB {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
-
     public static void savetoDatabase(String fname,String lname, String email, double number) {
-        Customer CustomerDetail = new Customer();
-
-        CustomerDetail.setFname(fname);
-        CustomerDetail.setLname(lname);
-        CustomerDetail.setEmail(email);
-        CustomerDetail.setPhoneNum(number);
+        CustomerInterface CustomerDetail = new Customer(fname, lname, email, number);
 
         try {
             // establish a connection to the database
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             // get column names from the Customer table
             DatabaseMetaData metaData = conn.getMetaData();
@@ -64,7 +54,6 @@ public class CustomerDB {
         } catch (SQLException e) {
             System.out.println("Error saving Customer to database: " + e.getMessage());
         }
-        return;
     }
 
     public static void updateCustomer() {
@@ -72,8 +61,9 @@ public class CustomerDB {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter Customer ID to update:");
             int customerID = scanner.nextInt();
+            scanner.nextLine();
 
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             String query = "SELECT * FROM Customer WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -81,12 +71,8 @@ public class CustomerDB {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing CustomerDetail object
-                Customer CustomerDetail = new Customer();
+                CustomerInterface CustomerDetail = new Customer(rs.getString("Fname"), rs.getString("Lname"), rs.getString("Email"), rs.getDouble("PhoneNumber"));       //Customer CustomerDetail = new Customer();
 
-                CustomerDetail.setFname(rs.getString("Fname"));
-                CustomerDetail.setLname(rs.getString("Fname"));
-                CustomerDetail.setEmail(rs.getString("email"));
-                CustomerDetail.setPhoneNum(rs.getDouble("number"));
 
 
                 // update fields of Customer object
@@ -99,7 +85,7 @@ public class CustomerDB {
                 System.out.println("Enter Customer Last Name:");
                 String Lname = scanner.nextLine();
                 if (!Lname.isEmpty()) {
-                    CustomerDetail.setFname(Lname);
+                    CustomerDetail.setLname(Lname);
                 }
 
                 System.out.println("Enter new email:");
