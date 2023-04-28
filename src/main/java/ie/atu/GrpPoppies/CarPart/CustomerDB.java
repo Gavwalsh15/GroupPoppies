@@ -14,10 +14,10 @@ public class CustomerDB {
     public static void savetoDatabase(String fname,String lname, String email, double number) {
         CustomerInterface CustomerDetail = new Customer(fname, lname, email, number);
 
-        CustomerDetail.setFname(fname);
-        CustomerDetail.setLname(lname);
-        CustomerDetail.setEmail(email);
-        CustomerDetail.setPhoneNum(number);
+        //CustomerDetail.setFname(fname);
+        //CustomerDetail.setLname(lname);
+        //CustomerDetail.setEmail(email);
+        //CustomerDetail.setPhoneNum(number);
 
         try {
             // establish a connection to the database
@@ -97,7 +97,7 @@ public class CustomerDB {
                 System.out.println("Enter Customer Last Name:");
                 String Lname = scanner.nextLine();
                 if (!Lname.isEmpty()) {
-                    CustomerDetail.setFname(Lname);
+                    CustomerDetail.setLname(Lname);
                 }
 
                 System.out.println("Enter new email:");
