@@ -1,22 +1,11 @@
-# GroupPoppies
+GOALS:
 
-Please Everyone Work on a branch and if you are worried ab pushing leave it until someone can help :)
+DONE
+-Command line Frontend to create, read, update and delete
+-use of Inheritance
+-use of arrays/arraylist
+- Mysqldatabse using JDBC
 
-
-
-
-
-
-
-
-
-
-ignore this below.
-
-tasks:
-
-#1 everyone open a new branch (etc AnneRection_Master, Gabeitch_branch)
-#2 commit after every change and push after every major work
-   everyone should have two branches at least, one for master and one for testing
-#3 get gud 
-
+ONGOING
+-Interface
+-Testing
