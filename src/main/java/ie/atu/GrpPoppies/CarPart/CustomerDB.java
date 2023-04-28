@@ -14,7 +14,7 @@ public class CustomerDB {
     public static void savetoDatabase(String fname,String lname, String email, double number) {
         CustomerInterface CustomerDetail = new Customer(fname, lname, email, number);
 
-        //CustomerDetail.setFname(fname);
+        //CustomerDetail.setFname(fname);       not relevant anymore
         //CustomerDetail.setLname(lname);
         //CustomerDetail.setEmail(email);
         //CustomerDetail.setPhoneNum(number);
@@ -81,10 +81,10 @@ public class CustomerDB {
                 // retrieve existing CustomerDetail object
                 CustomerInterface CustomerDetail = new Customer(rs.getString("Fname"), rs.getString("Lname"), rs.getString("Email"), rs.getDouble("PhoneNumber"));       //Customer CustomerDetail = new Customer();
 
-                CustomerDetail.setFname(rs.getString("Fname"));
-                CustomerDetail.setLname(rs.getString("Lname"));
-                CustomerDetail.setEmail(rs.getString("email"));
-                CustomerDetail.setPhoneNum(rs.getDouble("number"));
+                //CustomerDetail.setFname(rs.getString("Fname"));     not relevant anymore
+                //CustomerDetail.setLname(rs.getString("Lname"));
+                //CustomerDetail.setEmail(rs.getString("email"));
+                //CustomerDetail.setPhoneNum(rs.getDouble("number"));
 
 
                 // update fields of Customer object
