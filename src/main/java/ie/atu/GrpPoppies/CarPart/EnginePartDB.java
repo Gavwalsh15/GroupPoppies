@@ -72,14 +72,15 @@ public class EnginePartDB {
             System.out.println("Error saving car part to database: " + e.getMessage());
         }
     }
-    public static void updatePart(int Intenal_ID) {
+    public static void updatePart(int Internal_ID) {
         try {
             Scanner scanner = new Scanner(System.in);
 
             Connection conn = DatabaseUtils.getConnection();
-            String query = "SELECT * FROM Engine_parts WHERE Intenal_ID=?";
+
+            String query = "SELECT * FROM Engine_parts WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, Intenal_ID);
+            stmt.setInt(1, Internal_ID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing car part object by using database
@@ -159,7 +160,7 @@ public class EnginePartDB {
                 }
 
                 // save updated car part object to database
-                String updateQuery = "UPDATE Engine_parts SET part_number=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=?, engineType =?, engineSize =?  WHERE Intenal_ID=?";
+                String updateQuery = "UPDATE Engine_parts SET part_number=?, name=?, manufacturer=?, supplier=?, quantity=?, price=?, warranty=?, description=?, engineType =?, engineSize =?  WHERE Internal_ID=?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
                 updateStmt.setDouble(1, Epart.getPartNumber());
                 updateStmt.setString(2, Epart.getName());
@@ -169,9 +170,11 @@ public class EnginePartDB {
                 updateStmt.setDouble(6, Epart.getPrice());
                 updateStmt.setString(7, Epart.getWarranty());
                 updateStmt.setString(8, Epart.getDescription());
-                updateStmt.setDouble(9, Epart.getPartNumber());
-                updateStmt.setString(10, Epart.getEngineType());
-                updateStmt.setDouble(11, Epart.getEngineSize());
+                updateStmt.setString(9, Epart.getEngineType());
+                updateStmt.setDouble(10, Epart.getEngineSize());
+                updateStmt.setDouble(11, Internal_ID);
+
+
 
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {

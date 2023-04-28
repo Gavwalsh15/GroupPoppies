@@ -71,15 +71,15 @@ public class CarPartDB {
         return;
     }
 
-    public static void updatePart(int partNumber) {
+    public static void updatePart(int Internal_ID) {
         try {
             Scanner scanner = new Scanner(System.in);
 
             Connection conn = DatabaseUtils.getConnection();
 
-            String query = "SELECT * FROM Car_Parts WHERE part_number=?";
+            String query = "SELECT * FROM Car_Parts WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, partNumber);
+            stmt.setInt(1, Internal_ID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // retrieve existing car part object
@@ -149,7 +149,7 @@ public class CarPartDB {
                 updateStmt.setDouble(6, part.getPrice());
                 updateStmt.setString(7, part.getWarranty());
                 updateStmt.setString(8, part.getDescription());
-                updateStmt.setInt(9, partNumber);
+                updateStmt.setInt(9, Internal_ID);
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {
                     System.out.println("Car part updated successfully.");

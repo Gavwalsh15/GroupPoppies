@@ -65,7 +65,7 @@ public class PartApp {
     private static void updatePart() {
         Scanner scanner = new Scanner(System.in);
         String tableGet = ReadTables.listTables();
-        System.out.println("Enter part number to update:");
+        System.out.println("Enter Internal ID to update a Part:");
         int partNumber = scanner.nextInt();
         scanner.nextLine(); // consume the newline character
         //change to switch when you are ready good lad :)

@@ -30,7 +30,7 @@ public class ReadTables {
             System.out.println("Error retrieving car parts: " + e.getMessage());
         }
     }
-    public static String listTables() {
+    public static String listTables() {//only parts
         String table = null;
         try {
             Connection conn = DatabaseUtils.getConnection();
@@ -41,7 +41,7 @@ public class ReadTables {
             System.out.println("Tables in the database:");
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
-                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map")) {//IDK what these are but it returns this
+                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map") && !tableName.equals("Customer")) {//IDK what these are but it returns this
                     tables.add(tableName);
                 }
             }
