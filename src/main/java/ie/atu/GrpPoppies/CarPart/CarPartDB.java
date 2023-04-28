@@ -1,10 +1,9 @@
 package ie.atu.GrpPoppies.CarPart;
 
 
-import java.io.FileInputStream;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -165,15 +164,5 @@ public class CarPartDB {
             System.out.println("Error Updating part: " + e.getMessage());
         }
     }
-
-    //added interfacing
-    //don't know how to add search function
-    /*
-    public static void addCarPart() {
-    }
-    public static void updateCarPart() {
-    }
-    public static void deleteCarPart() {
-    */
-    }
+}
 
