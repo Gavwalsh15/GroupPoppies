@@ -7,21 +7,12 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 
 public class CustomerDB {
-    static String url = "jdbc:sqlserver://carpartserver.database.windows.net:1433;database=CarParts";
-    static String username = "CloudSAe622a702@carpartserver";
-    static String password = "GroupPoppies2023";
-
     public static void savetoDatabase(String fname,String lname, String email, double number) {
         CustomerInterface CustomerDetail = new Customer(fname, lname, email, number);
 
-        //CustomerDetail.setFname(fname);       not relevant anymore
-        //CustomerDetail.setLname(lname);
-        //CustomerDetail.setEmail(email);
-        //CustomerDetail.setPhoneNum(number);
-
         try {
             // establish a connection to the database
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             // get column names from the Customer table
             DatabaseMetaData metaData = conn.getMetaData();
@@ -70,8 +61,9 @@ public class CustomerDB {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter Customer ID to update:");
             int customerID = scanner.nextInt();
+            scanner.nextLine();
 
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DatabaseUtils.getConnection();
 
             String query = "SELECT * FROM Customer WHERE Internal_ID=?";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -81,10 +73,6 @@ public class CustomerDB {
                 // retrieve existing CustomerDetail object
                 CustomerInterface CustomerDetail = new Customer(rs.getString("Fname"), rs.getString("Lname"), rs.getString("Email"), rs.getDouble("PhoneNumber"));       //Customer CustomerDetail = new Customer();
 
-                //CustomerDetail.setFname(rs.getString("Fname"));     not relevant anymore
-                //CustomerDetail.setLname(rs.getString("Lname"));
-                //CustomerDetail.setEmail(rs.getString("email"));
-                //CustomerDetail.setPhoneNum(rs.getDouble("number"));
 
 
                 // update fields of Customer object
