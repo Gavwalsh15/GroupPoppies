@@ -64,6 +64,7 @@ public class PartApp {
 
     private static void updatePart() {
         Scanner scanner = new Scanner(System.in);
+
         String tableGet = ReadTables.listTables();
         System.out.println("Enter Internal ID to update a Part:");
         int partNumber = scanner.nextInt();
@@ -133,8 +134,7 @@ public class PartApp {
 
                 System.out.println("Enter Engine Size:");
                 int engineSize = scanner.nextInt();
-
-
+                
                 EnginePartDB.savetoDatabase(description, warranty, price, supplier, manufacturer, name, partNumber, quantity, engineType, engineSize);
             } else if (choice == 3) {//tyre
                 System.out.println("Enter Tyre Type:");
