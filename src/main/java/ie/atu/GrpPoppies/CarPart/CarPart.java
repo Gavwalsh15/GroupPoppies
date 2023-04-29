@@ -24,16 +24,6 @@ public class CarPart {
         this.description = description;
     }
 
-    //added interfacing
-    public static void main(String[] args) {
-        String viewParts;
-        String addCarPart;
-        String deleteCarPart;
-    }
-    public interface GarageApp{
-    }
-
-
     public double getPartNumber() {
         return partNumber;
     }

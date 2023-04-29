@@ -27,7 +27,6 @@ public class Customer implements CustomerInterface {
 
     @Override
     public String getLname() {
-
         return lname;
     }
 
