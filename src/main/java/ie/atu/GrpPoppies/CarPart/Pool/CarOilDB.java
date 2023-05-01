@@ -29,10 +29,8 @@ public class CarOilDB {
                 case 4-> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-
             System.out.println();
         }
-
     }
 
     private static void addOils() {
@@ -62,7 +60,6 @@ public class CarOilDB {
                 carOil.setOillitres(rs.getFloat("NumberofL"));
                 carOil.setPrice(rs.getDouble("Price"));
 
-
             try {
                 while (true) {
                     System.out.println("1. Add Oil\n2. Used Oil");
@@ -80,7 +77,7 @@ public class CarOilDB {
                         System.out.println("Total Cost : " + String.format("%.2f", tcost));
 
                         float diff = (float) (cost - carOil.getPrice());
-                        System.out.println("Difference of " + String.format("%.2f", diff));
+                        System.out.println("Difference of " + diff + " from last order.");
                         lAdded = lAdded + carOil.getOillitres();
 
                     } else if (choice == 2) {
@@ -95,7 +92,7 @@ public class CarOilDB {
                             tcost = (float)(lAdded * carOil.getPrice());
                             System.out.println("Cost of Oil Used: " + String.format("%.2f", tcost));
                             oilremain = carOil.getOillitres() - lAdded;
-                            System.out.println(String.format("Remaining oil: %.2f", oilremain));
+                            System.out.println(oilremain);
                         }
                         if (oilremain < 50) {
                             System.out.println("WARNING OIL RESERVE LOW!");
@@ -111,7 +108,6 @@ public class CarOilDB {
             }catch(InputMismatchException e){
                 System.out.println("Error Please Enter Correct Value: " + e);
             }
-
 
                 String updateQuery = "UPDATE CarOils SET NumberofL=?, Price=? WHERE Internal_ID=?";
                 PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
