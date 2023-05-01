@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart.Standard;
+package ie.atu.GrpPoppies.CarPart;
 
 public class CarPart {
         private double partNumber;
@@ -22,6 +22,15 @@ public class CarPart {
         this.price = price;
         this.warranty = warranty;
         this.description = description;
+    }
+
+    //added interfacing
+    public static void main(String[] args) {
+        String viewParts;
+        String addCarPart;
+        String deleteCarPart;
+    }
+    public interface GarageApp{
     }
 
 

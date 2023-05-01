@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart.Pool;
+package ie.atu.GrpPoppies.CarPart;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,15 +11,15 @@ public class DeleteDB {
         Scanner scanner = new Scanner(System.in);
 
         String tableGet = ReadTables.listTables();
-        System.out.println("Enter Internal ID to delete Part:");
-        int Internal_ID = scanner.nextInt();
+        System.out.println("Enter part number to delete:");
+        int partNumber = scanner.nextInt();
         try {
             Connection conn = DatabaseUtils.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableGet + " WHERE Internal_ID = ?");
-            stmt.setInt(1, Internal_ID);
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableGet + " WHERE part_number = ?");
+            stmt.setInt(1, partNumber);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 0) {
-                System.out.println("No part found with part number " + Internal_ID);
+                System.out.println("No part found with part number " + partNumber);
             } else {
                 System.out.println(rowsAffected + " row(s) deleted.");
             }
