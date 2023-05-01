@@ -197,4 +197,12 @@ public class TyreInfoDB {
             System.out.println("Error Updating part: " + e.getMessage());
         }
     }
+    public int add(int first, int second)
+    {
+        return (first + second);
+    }
+
+
+
+
 }
