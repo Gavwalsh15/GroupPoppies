@@ -24,6 +24,9 @@ public class CarPart {
         this.description = description;
     }
 
+    public static void savetoDatabase(String description, String warranty, double price, String supplier, String manufacturer, String name, double partNumber, int quantity) {
+    }
+
 
     public double getPartNumber() {
         return partNumber;

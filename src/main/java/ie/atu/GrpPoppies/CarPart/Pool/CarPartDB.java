@@ -26,7 +26,7 @@ public class CarPartDB {
         try {
             Connection conn = DatabaseUtils.getConnection();
 
-            String query = "INSERT INTO Car_Parts (part_number, name , maufacturer, supplier, quantity, price, warrenty, description) VALUES (?,?,?,?,?,?,?,?)";
+            String query = "INSERT INTO Car_Parts (part_number, name , manufacturer, supplier, quantity, price, warranty, description) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, part.getPartNumber());
