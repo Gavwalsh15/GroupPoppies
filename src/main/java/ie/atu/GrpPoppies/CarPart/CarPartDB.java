@@ -1,8 +1,7 @@
-package ie.atu.GrpPoppies.CarPart.Pool;
+
+package ie.atu.GrpPoppies.CarPart;
 
 
-
-import ie.atu.GrpPoppies.CarPart.Standard.CarPart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,7 +25,27 @@ public class CarPartDB {
         try {
             Connection conn = DatabaseUtils.getConnection();
 
-            String query = "INSERT INTO Car_Parts (part_number, name , maufacturer, supplier, quantity, price, warrenty, description) VALUES (?,?,?,?,?,?,?,?)";
+            // get column names from the Carpart table
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet columns = metaData.getColumns(null, null, "Car_Parts", null);
+
+            ArrayList<String> columnNames = new ArrayList<>();
+
+            while (columns.next()) {
+                String columnName = columns.getString("COLUMN_NAME");
+                if (!columnName.equals("Internal_ID")) {// is the auto increment and will return
+                    columnNames.add(columnName);
+                }
+            }
+            String columnGet = String.join(",", columnNames);
+            String columnValues = "";
+            for (int i = 0; i < columnNames.size(); i++) {
+                columnValues += "?";//adds ? for every var
+                if (i != columnNames.size() - 1) {//stop extra , at end
+                    columnValues += ",";
+                }
+            }
+            String query = "INSERT INTO Car_Parts (" + columnGet + ") VALUES (" + columnValues + ")";
             PreparedStatement stmt = conn.prepareStatement(query);
             // set the parameters for the PreparedStatement
             stmt.setDouble(1, part.getPartNumber());
@@ -50,6 +69,7 @@ public class CarPartDB {
         } catch (SQLException e) {
             System.out.println("Error saving car part to database: " + e.getMessage());
         }
+        return;
     }
 
     public static void updatePart(int Internal_ID) {
@@ -146,4 +166,3 @@ public class CarPartDB {
         }
     }
 }
-

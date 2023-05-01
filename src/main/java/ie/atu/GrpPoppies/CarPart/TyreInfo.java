@@ -1,8 +1,6 @@
-package ie.atu.GrpPoppies.CarPart.Standard;
+package ie.atu.GrpPoppies.CarPart;
 
-import ie.atu.GrpPoppies.CarPart.Standard.CarPart;
-
-public class TyreInfo extends CarPart {
+public class TyreInfo extends CarPart{
     private String TyreType;
     private String TyreRating;
     private double WheelSize;
