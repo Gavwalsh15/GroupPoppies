@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart;
+package ie.atu.GrpPoppies.CarPart.Standard;
 
 //done
 public class Customer implements CustomerInterface {
@@ -27,6 +27,7 @@ public class Customer implements CustomerInterface {
 
     @Override
     public String getLname() {
+
         return lname;
     }
 
