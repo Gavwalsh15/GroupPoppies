@@ -32,9 +32,7 @@ public class PartApp {
                     case 4 -> updatePart();
                     case 5 -> addCustomer();
                     case 6 -> CustomerDB.updateCustomer();
-                    case 7 -> { System.out.println("All Customers\t");
-                                ReadTablesCustomer.viewCustomers();
-                    }
+                    case 7 -> viewCustomers();
                     case 8 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
@@ -75,6 +73,8 @@ public class PartApp {
             CarPartDB.updatePart(partNumber);
         }
     }
+
+
 
     private static void addCarPart() {
         Scanner scanner = new Scanner(System.in);

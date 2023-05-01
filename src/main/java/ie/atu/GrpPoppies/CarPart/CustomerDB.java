@@ -56,6 +56,47 @@ public class CustomerDB {
         }
     }
 
+    private static void viewCustomers(){
+        try{
+            Connection conn=DatabaseUtils.getConnection();
+            Statement stmt=conn.createStatement();
+            PreparedStatement pstmt=conn.prepareStatement("SELECT * FROM Customer");
+
+            System.out.println("How Would you Like To Filter");
+            String col=ReadTables.listColumns("Customer");
+
+            if(!col.equals("All")){
+                System.out.println("What are the customer details?");
+                String details=new Scanner(System.in).nextLine();
+
+                pstmt=conn.prepareStatement("SELECT * FROM Customer WHERE "+col+"=?");//overwrite if filter
+                if(col.equals("Fname")col.equals("Lname")col.equals("Email")){
+                    pstmt.setString(1,details);
+                }
+                else if(col.equals("PhoneNumber")){
+                    double phone=Double.parseDouble(details);
+                    pstmt.setDouble(1,phone);
+                }
+            }
+            ResultSet rs=pstmt.executeQuery();
+            ResultSetMetaData rsmd=rs.getMetaData();
+            int numColumns=rsmd.getColumnCount();
+            for(int i=1;i<=numColumns;i++){
+                System.out.printf("%-30s",rsmd.getColumnName(i));//makes a cool looking table
+            }
+            System.out.println("\n");
+            while(rs.next()){
+                for(int i=1;i<=numColumns;i++){
+                    System.out.printf("%-30s",rs.getString(i));
+                }
+                System.out.println();
+            }
+        }catch(SQLException e){
+            System.out.println("Error retrieving customer details: "+e.getMessage());
+        }
+    }
+
+
     public static void updateCustomer() {
         try {
             Scanner scanner = new Scanner(System.in);
