@@ -1,6 +1,8 @@
-package ie.atu.GrpPoppies.CarPart;
+package ie.atu.GrpPoppies.CarPart.Standard;
 
-public class EnginePart extends CarPart{
+import ie.atu.GrpPoppies.CarPart.Standard.CarPart;
+
+public class EnginePart extends CarPart {
     private String engineType;
     private double engineSize;
 

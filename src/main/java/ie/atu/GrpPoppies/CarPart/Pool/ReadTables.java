@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart;
+package ie.atu.GrpPoppies.CarPart.Pool;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,14 +10,13 @@ public class ReadTables {
         String tableGet = ReadTables.listTables();
         try {
             Connection conn = DatabaseUtils.getConnection();
-
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableGet);
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int numColumns = rsmd.getColumnCount();
             for (int i = 1; i <= numColumns; i++) {
-                System.out.printf("%-20s", rsmd.getColumnName(i));//have a look at this replaces \t\t
+                System.out.printf("%-20s", rsmd.getColumnName(i));//makes a cool looking table
             }
             System.out.println("\n");
             while (rs.next()) {
@@ -31,7 +30,7 @@ public class ReadTables {
             System.out.println("Error retrieving car parts: " + e.getMessage());
         }
     }
-    public static String listTables() {//only parts
+    public static String listTables() {
         String table = null;
         try {
             Connection conn = DatabaseUtils.getConnection();
@@ -42,7 +41,7 @@ public class ReadTables {
             System.out.println("Tables in the database:");
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
-                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map") && !tableName.equals("Customer")) {//IDK what these are but it returns this
+                if (!tableName.equals("trace_xe_action_map") && !tableName.equals("trace_xe_event_map") && !tableName.equals("Customer") && !tableName.equals("CarOils")) {//IDK what these are but it returns this
                     tables.add(tableName);
                 }
             }
@@ -61,10 +60,11 @@ public class ReadTables {
         return table;
     }
 
-    public static void listColumns() {//list column names
+    public static String listColumns(String tableGet) {
+        String column = null;
+        int p = 0;
         try {
             Connection conn = DatabaseUtils.getConnection();
-            String tableGet = listTables();
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet columns = metaData.getColumns(null, null, tableGet, null);
 
@@ -72,22 +72,25 @@ public class ReadTables {
 
             while (columns.next()) {
                 String columnName = columns.getString("COLUMN_NAME");
-                if (!columnName.equals("Internal_ID")) {// is the auto increment and will return
-                    columnNames.add(columnName);
-                }
+                columnNames.add(columnName);
             }
-            for (String columnName : columnNames) {
-                System.out.println(columnName);
+            Scanner scanner = new Scanner(System.in);
+            for (p = 0; p < columnNames.size(); p++) {
+                System.out.println(p + 1 + ". " + columnNames.get(p));
             }
+            System.out.println(p+1 + ". Search all" );
+            System.out.println("Enter the category:");
+            int tableInd = scanner.nextInt();
+            if(tableInd > columnNames.size()){
+                column = "All";
+            }else{column = columnNames.get(tableInd - 1);}
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return column;
     }
 }
-
-
-
-
 
 
 

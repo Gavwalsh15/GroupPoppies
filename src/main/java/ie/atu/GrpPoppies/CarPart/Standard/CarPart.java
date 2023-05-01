@@ -1,14 +1,14 @@
-package ie.atu.GrpPoppies.CarPart;
+package ie.atu.GrpPoppies.CarPart.Standard;
 
 public class CarPart {
-    private double partNumber;
-    private String name;
-    private String manufacturer;
-    private String supplier;
-    private int quantity;
-    private double price;
-    private String warranty;
-    private String description;
+        private double partNumber;
+        private String name;
+        private String manufacturer;
+        private String supplier;
+        private int quantity;
+        private double price;
+        private String warranty;
+        private String description;
 
     public CarPart() {
     }
@@ -23,6 +23,7 @@ public class CarPart {
         this.warranty = warranty;
         this.description = description;
     }
+
 
     public double getPartNumber() {
         return partNumber;
@@ -88,3 +89,4 @@ public class CarPart {
         this.description = description;
     }
 }
+
