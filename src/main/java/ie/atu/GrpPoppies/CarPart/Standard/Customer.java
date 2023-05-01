@@ -1,4 +1,4 @@
-package ie.atu.GrpPoppies.CarPart;
+package ie.atu.GrpPoppies.CarPart.Standard;
 
 //done
 public class Customer implements CustomerInterface {
