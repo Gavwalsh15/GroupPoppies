@@ -9,7 +9,7 @@ public class PartApp {
             // Display the menu
             int choice = 0;
 
-            while (choice != 7) {
+            while (choice != 9) {
 
                 System.out.println("Car and Engine Parts Management System");
                 System.out.println("1. Add Car Part");
@@ -18,7 +18,8 @@ public class PartApp {
                 System.out.println("4. Update Part");
                 System.out.println("5. Add Customer");
                 System.out.println("6. Update Customer");
-                System.out.println("7. Exit");
+                System.out.println("7. View all Customer");
+                System.out.println("8. Exit");
                 System.out.print("Enter your choice: ");
 
                 Scanner input = new Scanner(System.in);
@@ -31,13 +32,14 @@ public class PartApp {
                     case 4 -> updatePart();
                     case 5 -> addCustomer();
                     case 6 -> CustomerDB.updateCustomer();
-                    case 7 -> System.out.println("Well done no Errors I hope!");
+                    case 7 -> { System.out.println("All Customers\t");
+                                ReadTablesCustomer.viewCustomers();
+                    }
+                    case 8 -> System.out.println("Well done no Errors I hope!");
                     default -> System.out.println("Invalid choice. Please try again.");
                 }
-
                 System.out.println();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +63,6 @@ public class PartApp {
         CustomerDB.savetoDatabase(fname,lname,email,phone);
     }
 
-
     private static void updatePart() {
         Scanner scanner = new Scanner(System.in);
 
@@ -74,7 +75,6 @@ public class PartApp {
             CarPartDB.updatePart(partNumber);
         }
     }
-
 
     private static void addCarPart() {
         Scanner scanner = new Scanner(System.in);
