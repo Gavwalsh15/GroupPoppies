@@ -175,7 +175,7 @@ public class CustomerDB {
     private static void viewCustomers() {
         try {
             Connection conn = DatabaseUtils.getConnection();
-            Statement stmt = conn.createStatement();
+            conn.createStatement();
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Customer");
 
             System.out.println("How Would you Like To Filter");
